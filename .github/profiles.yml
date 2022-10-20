@@ -1,0 +1,11 @@
+jaffle_shop:
+  outputs:
+    github:
+      type: sqlite
+      threads: 1
+      database: "database"
+      schema: "main"
+      schemas_and_paths:
+        main: ".github/main.db"
+      schema_directory: ".github/"
+  target: github

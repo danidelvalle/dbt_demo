@@ -19,6 +19,9 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
+env:
+  DBT_PROFILES_DIR: .github
+
 jobs:
   # Build job
   build:
@@ -34,6 +37,8 @@ jobs:
           dbt_command: "dbt docs generate"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
+        with:
+          path: target
 
   # Deployment job
   deploy:
