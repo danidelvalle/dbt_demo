@@ -36,8 +36,8 @@ jobs:
         with:
           python-version: "3.9"
       - run: pip install dbt-core dbt-sqlite
-      - name: dbt docs generate
-        run: dbt docs generate
+      - run: dbt deps
+      - run: dbt docs generate
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
