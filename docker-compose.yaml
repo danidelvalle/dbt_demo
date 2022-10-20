@@ -1,0 +1,13 @@
+version: '2'
+services:
+
+  postgres:
+    image: debezium/postgres
+    hostname: postgres_dev
+    container_name: postgres_dev
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "dbt"
+      POSTGRES_DB: "jaffle"
+      POSTGRES_PASSWORD: "Pass123"

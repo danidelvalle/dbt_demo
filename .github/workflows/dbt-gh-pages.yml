@@ -3,7 +3,7 @@ name: Deploy dbt docs on GitHub Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches: ["main", "feature/dbt-docs-gh-pages"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -19,6 +19,9 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
+env:
+  DBT_PROFILES_DIR: .github
+
 jobs:
   # Build job
   build:
@@ -29,11 +32,16 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: dbt docs generate
-        uses: mwhitaker/dbt-action@master
+        uses: actions/setup-python@v4
         with:
-          dbt_command: "dbt docs generate"
+          python-version: "3.9"
+      - run: pip install dbt-core dbt-sqlite
+      - run: dbt deps
+      - run: dbt docs generate
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
+        with:
+          path: target
 
   # Deployment job
   deploy:

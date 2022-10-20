@@ -2,7 +2,9 @@ version: 2
 
 models:
   - name: customers
-    description: This table has basic information about a customer, as well as some derived facts based on a customer's orders
+    description: >
+      This table has basic information about a customer, as well as some
+      derived facts based on a customer's orders
 
     columns:
       - name: customer_id
@@ -41,11 +43,6 @@ models:
 
       - name: customer_id
         description: Foreign key to the customers table
-        tests:
-          - not_null
-          - relationships:
-              to: ref('customers')
-              field: customer_id
 
       - name: order_date
         description: Date (UTC) that the order was placed
@@ -54,7 +51,8 @@ models:
         description: '{{ doc("orders_status") }}'
         tests:
           - accepted_values:
-              values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
+              values:
+                ["placed", "shipped", "completed", "return_pending", "returned"]
 
       - name: amount
         description: Total amount (AUD) of the order
