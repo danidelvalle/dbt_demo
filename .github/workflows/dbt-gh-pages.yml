@@ -32,9 +32,12 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: dbt docs generate
-        uses: mwhitaker/dbt-action@master
+        uses: actions/setup-python@v4
         with:
-          dbt_command: "pip install dbt-sqlite && dbt docs generate"
+          python-version: "3.9"
+      - run: pip install dbt-core dbt-sqlite
+      - name: dbt docs generate
+        run: dbt docs generate
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
